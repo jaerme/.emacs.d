@@ -1,0 +1,6 @@
+.DS_Store
+backup
+backup.*
+elpa
+tmp
+auto-save-list
