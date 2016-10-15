@@ -41,6 +41,9 @@
 (use-package clojure-mode
   :ensure t)
 
+(use-package cider
+  :ensure t)
+
 (use-package paredit
   :diminish paredit-mode
   :init
@@ -81,7 +84,9 @@
 (use-package js2-mode
   :ensure t
   :mode (("\\.jsx?\\'" . js2-jsx-mode))
-  :config (setq js2-basic-offset 2))
+  :config
+  (setq js2-basic-offset 2)
+  (setq js2-strict-missing-semi-warning nil))
 
 (use-package web-mode
   :ensure t
@@ -97,5 +102,20 @@
          ("C-x C-f" . helm-find-files)
          ("C-x b" . helm-buffers-list)
          ("<tab>" . helm-execute-persistent-action)))
+
+(use-package projectile
+  :ensure t
+  :bind (("C-x p" . projectile-persp-switch-project))
+  :config
+  (setq projectile-completion-system 'helm)
+  (projectile-global-mode)
+  (helm-projectile-on)
+  (setq projectile-enable-caching nil)
+  :diminish (projectile-mode))
+
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
   
 (provide 'init)

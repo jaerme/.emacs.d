@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (helm cider-mode clojure-mode cider paredit helm-core magit web-mode js2-mode company slime rainbow-delimiters use-package))))
+    (cider helm-projectile projectile web-mode use-package slime rainbow-delimiters paredit magit js2-mode helm company clojure-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
