@@ -86,7 +86,9 @@
   :mode (("\\.jsx?\\'" . js2-jsx-mode))
   :config
   (setq js2-basic-offset 2)
-  (setq js2-strict-missing-semi-warning nil))
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-mode-show-parse-errors nil)
+  (setq js2-mode-show-strict-warnings nil))
 
 (use-package web-mode
   :ensure t
@@ -95,27 +97,36 @@
                   web-mode-css-indent-offset 2
                   web-mode-code-indent-offset 2)))
 
-(use-package helm
-  :ensure t
-  :init (helm-mode 1)
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-buffers-list)
-         ("<tab>" . helm-execute-persistent-action)))
-
 (use-package projectile
   :ensure t
   :bind (("C-x p" . projectile-persp-switch-project))
   :config
-  (setq projectile-completion-system 'helm)
   (projectile-global-mode)
-  (helm-projectile-on)
   (setq projectile-enable-caching nil)
   :diminish (projectile-mode))
 
-(use-package helm-projectile
+(use-package geiser
+  :ensure t)
+
+(use-package swiper
   :ensure t
+  :diminish (ivy-mode . "")
   :config
-  (helm-projectile-on))
+  (ivy-mode 1)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 20)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+  ;; no regexp by default
+  (setq ivy-initial-inputs-alist nil)
+  ;; configure regexp engine.
+  (setq ivy-re-builders-alist
+	;; allow input not in order
+        '((t   . ivy--regex-ignore-order))))
+
+(use-package elm-mode
+  :ensure t)
   
 (provide 'init)
