@@ -1,7 +1,6 @@
 ;; begin
 (setq inhibit-splash-screen t
-      initial-major-mode 'emacs-lisp-mode
-      initial-scratch-message "sup")
+      initial-major-mode 'emacs-lisp-mode)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq-default indent-tabs-mode nil)
@@ -19,5 +18,5 @@
 (setq browse-url-browser-function 'browse-url-xdg-open)
 (fset 'display-startup-echo-area-message #'ignore)
 
-(provide 'system)
+(provide 'settings)
 

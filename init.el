@@ -17,14 +17,11 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(load-theme 'gruvbox t)
-
 (set-face-attribute 'default nil
                     :family "DejaVu Sans Mono" :height 98)
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'system)
+(add-to-list 'load-path (expand-file-name "settings" user-emacs-directory))
+(require 'settings)
 
 ;; get packages
 (use-package cus-edit
@@ -38,27 +35,16 @@
         custom-unlispify-menu-entries nil)
   :init (load my-custom-file 'no-error 'no-message))
 
-(use-package clojure-mode
-  :ensure t)
-
-(use-package cider
-  :ensure t)
-
 (use-package paredit
-  :diminish paredit-mode
-  :init
-  (add-hook 'clojure-mode-hook 'enable-paredit-mode)
-  (add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook 'enable-paredit-mode)
-  (add-hook 'json-mode-hook 'enable-paredit-mode))
-
-(use-package rainbow-delimiters
   :ensure t
-  :defer t
-  :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :init
+  (dolist (hook '(emacs-lisp-mode-hook
+                  ielm-mode-hook
+                  lisp-mode-hook
+                  lisp-interaction-mode-hook
+                  geiser-mode-hook))
+  (add-hook hook 'paredit-mode))
+  :diminish paredit-mode)
 
 (use-package slime
   :ensure t
@@ -126,7 +112,24 @@
 	;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
-(use-package elm-mode
+(use-package neotree
+  :ensure t
+  :config
+  (global-set-key [f8] 'neotree-toggle))
+
+(use-package all-the-icons
+  :ensure t
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+
+(use-package nyan-mode
+  :ensure t
+  :config
+  (nyan-mode 1)
+  (nyan-start-animation))
+
+(use-package grandshell-theme
   :ensure t)
-  
+
+(load-theme 'grandshell t)
 (provide 'init)
