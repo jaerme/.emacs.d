@@ -1,6 +1,7 @@
 ;; begin
 (setq inhibit-splash-screen t
-      initial-major-mode 'emacs-lisp-mode)
+      initial-major-mode 'emacs-lisp-mode
+      initial-scratch-message "")
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq-default indent-tabs-mode nil)
