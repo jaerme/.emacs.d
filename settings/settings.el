@@ -1,4 +1,7 @@
-;; begin
+;; custom settings
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 (setq inhibit-splash-screen t
       initial-major-mode 'emacs-lisp-mode
       initial-scratch-message "")
@@ -16,8 +19,15 @@
 (setq make-backup-files nil)
 (setq create-lockfiles nil)
 (setq ring-bell-function 'ignore)
-(setq browse-url-browser-function 'browse-url-xdg-open)
+(setq browse-url-browser-function 'eww-browse-url)
 (fset 'display-startup-echo-area-message #'ignore)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+;; OS X
+(setq mac-option-key-is-meta nil)
+(setq mac-command-key-is-meta t)
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier nil)
 
 (provide 'settings)
 

@@ -17,13 +17,12 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-(set-face-attribute 'default nil
-                    :family "DejaVu Sans Mono" :height 98)
-
 (add-to-list 'load-path (expand-file-name "settings" user-emacs-directory))
 (require 'settings)
 
-;; get packages
+;; global packages
+(setq use-package-always-ensure t)
+
 (use-package cus-edit
   :defer t
   :config
@@ -35,23 +34,36 @@
         custom-unlispify-menu-entries nil)
   :init (load my-custom-file 'no-error 'no-message))
 
+(use-package exec-path-from-shell
+  :defer t
+  :init
+  (progn
+    (setq exec-path-from-shell-check-startup-files nil)
+    (exec-path-from-shell-initialize)))
+
 (use-package paredit
-  :ensure t
   :init
   (dolist (hook '(emacs-lisp-mode-hook
-                  ielm-mode-hook
+                  clojure-mode-hook
                   lisp-mode-hook
                   lisp-interaction-mode-hook
                   geiser-mode-hook))
-  (add-hook hook 'paredit-mode))
+    (add-hook hook 'paredit-mode))
   :diminish paredit-mode)
 
 (use-package slime
-  :ensure t
   :defer t
   :config
-  (setq inferior-lisp-program "sbcl")
-  (setq slime-contribs '(slime-fancy)))
+  (progn
+    (setq inferior-lisp-program "sbcl")
+    (setq slime-contribs '(slime-fancy))))
+
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :config (global-undo-tree-mode))
+
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 
 (use-package company     
   :ensure t
@@ -67,21 +79,26 @@
 	  company-tooltip-flip-when-above t))
   :diminish company-mode)
 
+(use-package company-quickhelp
+  :config (company-quickhelp-mode 1))
+
 (use-package js2-mode
-  :ensure t
-  :mode (("\\.jsx?\\'" . js2-jsx-mode))
-  :config
-  (setq js2-basic-offset 2)
-  (setq js2-strict-missing-semi-warning nil)
-  (setq js2-mode-show-parse-errors nil)
-  (setq js2-mode-show-strict-warnings nil))
+  :mode (("\\.js\\'" . js2-mode))
+  :config (setq js2-basic-offset 2))
+
+(use-package rjsx-mode
+  :mode (("\\.jsx\\'" . rjsx-mode)
+         ("components\\/.*\\.js\\'" . rjsx-mode)))
 
 (use-package web-mode
-  :ensure t
-  :config (progn
-            (setq web-mode-markup-indent-offset 2
-                  web-mode-css-indent-offset 2
-                  web-mode-code-indent-offset 2)))
+  :config
+  (progn
+    (setq web-mode-markup-indent-offset 2
+          web-mode-css-indent-offset 2
+          web-mode-code-indent-offset 2
+          web-mode-script-padding 0
+          web-mode-style-padding 0))
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode)))
 
 (use-package projectile
   :ensure t
@@ -91,11 +108,9 @@
   (setq projectile-enable-caching nil)
   :diminish (projectile-mode))
 
-(use-package geiser
-  :ensure t)
+(use-package geiser)
 
 (use-package swiper
-  :ensure t
   :diminish (ivy-mode . "")
   :config
   (ivy-mode 1)
@@ -113,23 +128,43 @@
         '((t   . ivy--regex-ignore-order))))
 
 (use-package neotree
-  :ensure t
   :config
   (global-set-key [f8] 'neotree-toggle))
 
 (use-package all-the-icons
-  :ensure t
   :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 (use-package nyan-mode
-  :ensure t
   :config
-  (nyan-mode 1)
-  (nyan-start-animation))
+  (progn
+    (nyan-mode 1)
+    (nyan-start-animation)))
 
-(use-package grandshell-theme
-  :ensure t)
+(use-package clojure-mode)
 
-(load-theme 'grandshell t)
+(use-package cider)
+
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package evil)
+
+(use-package go-mode
+  :config
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'gofmt-before-save)
+              (setq tab-width 4)
+              (setq indent-tabs-mode 1))))
+
+(use-package intero
+  :init
+  (add-hook 'haskell-mode-hook 'intero-mode))
+
+(use-package zerodark-theme
+  :init
+  (load-theme 'zerodark t))
+
 (provide 'init)
