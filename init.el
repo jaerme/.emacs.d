@@ -45,9 +45,9 @@
   :init
   (dolist (hook '(emacs-lisp-mode-hook
                   clojure-mode-hook
+                  racket-mode-hook
                   lisp-mode-hook
-                  lisp-interaction-mode-hook
-                  geiser-mode-hook))
+                  lisp-interaction-mode-hook))
     (add-hook hook 'paredit-mode))
   :diminish paredit-mode)
 
@@ -66,7 +66,6 @@
   :bind ("C-=" . er/expand-region))
 
 (use-package company     
-  :ensure t
   :init (global-company-mode)
   :config
   (progn
@@ -107,8 +106,6 @@
   (projectile-global-mode)
   (setq projectile-enable-caching nil)
   :diminish (projectile-mode))
-
-(use-package geiser)
 
 (use-package swiper
   :diminish (ivy-mode . "")
@@ -166,5 +163,8 @@
 (use-package zerodark-theme
   :init
   (load-theme 'zerodark t))
+
+(use-package racket-mode
+  :bind (("C-c r" . 'racket-run)))
 
 (provide 'init)

@@ -9,7 +9,7 @@
  '(delete-selection-mode t)
  '(package-selected-packages
    (quote
-    (company-tern expand-region smart-mode-line exec-path-from-shell cus-edit zero-dark-theme atom-one-dark-theme zerodark-theme spacegray-theme powerline bongo intero solarized-theme rust-mode go-mode tldr rjsx-mode julia-mode markdown-mode+ kotlin-mode moe-theme gruvbox-theme subatomic-theme toxi-theme cyberpunk-theme zenburn-theme typescript-mode sicp grandshell-theme company-quickhelp nyan-mode all-the-icons neotree 2048-game erlang lua-mode elixir-mode csharp-mode evil material-theme elm-mode swiper haskell-mode purescript-mode typit afternoon-theme geiser cider projectile web-mode use-package slime rainbow-delimiters paredit magit js2-mode company clojure-mode)))
+    (racket-mode company-tern expand-region smart-mode-line exec-path-from-shell cus-edit zero-dark-theme atom-one-dark-theme zerodark-theme spacegray-theme powerline bongo intero solarized-theme rust-mode go-mode tldr rjsx-mode julia-mode markdown-mode+ kotlin-mode moe-theme gruvbox-theme subatomic-theme toxi-theme cyberpunk-theme zenburn-theme typescript-mode sicp grandshell-theme company-quickhelp nyan-mode all-the-icons neotree 2048-game erlang lua-mode elixir-mode csharp-mode evil material-theme elm-mode swiper haskell-mode purescript-mode typit afternoon-theme cider projectile web-mode use-package slime rainbow-delimiters paredit magit js2-mode company clojure-mode)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
