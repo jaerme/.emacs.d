@@ -100,7 +100,6 @@
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode)))
 
 (use-package projectile
-  :ensure t
   :bind (("C-x p" . projectile-persp-switch-project))
   :config
   (projectile-global-mode)
@@ -125,12 +124,10 @@
         '((t   . ivy--regex-ignore-order))))
 
 (use-package neotree
-  :config
-  (global-set-key [f8] 'neotree-toggle))
+  :config (global-set-key [f8] 'neotree-toggle))
 
 (use-package all-the-icons
-  :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  :config (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 (use-package nyan-mode
   :config
@@ -140,13 +137,12 @@
 
 (use-package clojure-mode)
 
-(use-package cider)
+(use-package cider
+  :init (setq cider-repl-display-help-banner nil)
+  :config (setq cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))"))
 
 (use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-
-(use-package evil)
+  :config (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (use-package go-mode
   :config
@@ -156,15 +152,21 @@
               (setq tab-width 4)
               (setq indent-tabs-mode 1))))
 
-(use-package intero
-  :init
-  (add-hook 'haskell-mode-hook 'intero-mode))
+(use-package haskell-mode)
 
-(use-package zerodark-theme
-  :init
-  (load-theme 'zerodark t))
+(use-package intero
+  :init (add-hook 'haskell-mode-hook 'intero-mode))
+
+(use-package dracula-theme
+  :init (load-theme 'dracula t))
+
+(use-package powerline
+  :init (powerline-default-theme))
 
 (use-package racket-mode
   :bind (("C-c r" . 'racket-run)))
+
+(use-package indium
+  :config (add-hook 'js2-mode-hook 'indium-interaction-mode))
 
 (provide 'init)

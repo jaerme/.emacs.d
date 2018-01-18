@@ -8,6 +8,7 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq-default indent-tabs-mode nil)
+(blink-cursor-mode 0)
 (global-linum-mode t)
 (show-paren-mode t)
 (scroll-bar-mode -1)
