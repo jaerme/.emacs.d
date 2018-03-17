@@ -1,4 +1,5 @@
 ;; custom settings
+(set-face-attribute 'default nil :font "Fira Code" :height 120)
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
@@ -25,10 +26,10 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; OS X
-(setq mac-option-key-is-meta nil)
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
+;;(setq mac-option-key-is-meta nil)
+;;(setq mac-command-key-is-meta t)
+;;(setq mac-command-modifier 'meta)
+;;(setq mac-option-modifier nil)
 
 (provide 'settings)
 

@@ -35,11 +35,8 @@
   :init (load my-custom-file 'no-error 'no-message))
 
 (use-package exec-path-from-shell
-  :defer t
-  :init
-  (progn
-    (setq exec-path-from-shell-check-startup-files nil)
-    (exec-path-from-shell-initialize)))
+  :ensure t
+  :init (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package paredit
   :init
@@ -168,5 +165,8 @@
 
 (use-package indium
   :config (add-hook 'js2-mode-hook 'indium-interaction-mode))
+
+(use-package evil
+  :init (evil-mode 1))
 
 (provide 'init)
